@@ -78,8 +78,10 @@ function fastqueue (context, worker, concurrency) {
     if (!self.paused) return
     self.paused = false
     for (var i = 0; i < self.concurrency; i++) {
-      _running++
-      release()
+      if ( _running < self.concurrency ) {
+        _running++
+        release()
+      }
     }
   }
 
